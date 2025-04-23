@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
+import { ThemeButton } from "./ThemeButton";
 
 export function Navigation() {
   return (
@@ -28,9 +29,7 @@ export function Navigation() {
               <Button variant="outline">Logout</Button>
               <Button variant="ghost">Login</Button>
               <Button>Register</Button>
-              <button className="bg-background rounded-full flex items-center justify-center w-8 h-8 border">
-                🌙
-              </button>
+              <ThemeButton />
             </div>
           </div>
         </div>

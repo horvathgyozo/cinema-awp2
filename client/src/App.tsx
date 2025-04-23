@@ -3,23 +3,23 @@ import { Navigation } from "./Navigation";
 import { Home } from "./Home";
 import { Footer } from "./Footer";
 import MovieDetail from "./MovieDetail";
-import { useState } from "react";
-import movieData from "./dummy-data/movies.json";
+import { BrowserRouter, Route, Routes } from "react-router";
 
 function App() {
-  const [selectedMovieId, setSelectedMovieId] = useState<number | null>(null);
-  const selectedMovie = movieData.find((movie) => movie.id === selectedMovieId);
-
   return (
-    <div className="bg-background flex flex-col">
-      <Background />
-      <Navigation />
-      <main className="min-h-[70vh] mx-auto px-4 py-8 mt-10 z-10">
-        <Home onCardSelect={setSelectedMovieId} />
-        <MovieDetail movie={selectedMovie} />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="bg-background flex flex-col">
+        <Background />
+        <Navigation />
+        <main className="min-h-[70vh] mx-auto px-4 py-8 mt-10 z-10">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies/:id" element={<MovieDetail />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

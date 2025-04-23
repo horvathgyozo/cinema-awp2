@@ -7,13 +7,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Movie } from "./MovieCard";
+import { useParams } from "react-router";
+import movieData from "./dummy-data/movies.json";
 
-interface MovieDetailProps {
-  movie: Movie | undefined;
-}
-
-export default function MovieDetail({ movie }: MovieDetailProps) {
+export default function MovieDetail() {
+  const params = useParams();
+  const movieId = Number(params.id);
+  const movie = movieData.find((movie) => movie.id === movieId);
   if (!movie) return null;
   // Screenings to display
   const currentScreenings = movie.screenings.slice(0, 3);
@@ -72,7 +72,7 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
         </div>
         <div>
           <img
-            src={movie.image_path}
+            src={`/${movie.image_path}`}
             alt={movie.title}
             className="w-full rounded-lg shadow-lg"
           />

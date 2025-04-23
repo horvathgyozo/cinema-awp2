@@ -10,14 +10,15 @@ import {
 import { Badge } from "./components/ui/badge";
 import movieData from "./dummy-data/movies.json";
 
-type Movie = (typeof movieData)[number];
+export type Movie = (typeof movieData)[number];
 
 interface MovieCardProps {
   movie: Movie;
+  onCardSelect: (id: number) => void;
 }
 
 export function MovieCard({ movie, onCardSelect }: MovieCardProps) {
-  const handleClick = (e) => {
+  const handleClick = () => {
     onCardSelect(movie.id);
   };
   return (

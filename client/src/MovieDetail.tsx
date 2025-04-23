@@ -7,8 +7,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Movie } from "./MovieCard";
 
-export default function MovieDetail({ movie }) {
+interface MovieDetailProps {
+  movie: Movie | undefined;
+}
+
+export default function MovieDetail({ movie }: MovieDetailProps) {
   if (!movie) return null;
   // Screenings to display
   const currentScreenings = movie.screenings.slice(0, 3);

@@ -1,7 +1,7 @@
 import { MovieCard } from "./MovieCard";
 import movieData from "./dummy-data/movies.json";
 
-export function Home() {
+export function Home({ onCardSelect }) {
   return (
     <div className="container max-w-5xl mx-auto px-4">
       <div className="flex justify-between items-center mb-4">
@@ -10,7 +10,7 @@ export function Home() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {movieData.map((movie) => (
-          <MovieCard movie={movie} />
+          <MovieCard key={movie.id} movie={movie} onCardSelect={onCardSelect} />
         ))}
       </div>
     </div>

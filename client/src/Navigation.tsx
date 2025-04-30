@@ -2,8 +2,12 @@ import { Link } from "react-router";
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
 import { ThemeButton } from "./ThemeButton";
+import { useAuthStore } from "./useAuthStore";
 
 export function Navigation() {
+  const email = useAuthStore((state) => state.email);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <nav className="border-b z-50 shadow-lg rounded-full sticky top-5 mx-auto max-w-6xl w-11/12">
       <Card className="lg:p-0 lg:rounded-full rounded-full lg:shadow-lg shadow-md">
@@ -25,10 +29,19 @@ export function Navigation() {
               </span>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-muted-foreground">Welcome, User</span>
-              <Button variant="outline">Logout</Button>
-              <Link to={"/login"}>Login</Link>
-              <Button>Register</Button>
+              {isAuthenticated ? (
+                <>
+                  <span className="text-muted-foreground">
+                    Welcome, {email}
+                  </span>
+                  <Button variant="outline">Logout</Button>{" "}
+                </>
+              ) : (
+                <>
+                  <Link to={"/login"}>Login</Link>
+                  <Button>Register</Button>
+                </>
+              )}
               <ThemeButton />
             </div>
           </div>

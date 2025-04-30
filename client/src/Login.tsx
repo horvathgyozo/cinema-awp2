@@ -1,9 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FormEvent, useRef, useState } from "react";
+import { useState } from "react";
+import { useAuthStore } from "./useAuthStore";
 
 export default function Login() {
+  const login = useAuthStore((state) => state.login);
+
   // uncontrolled form components
   // 1.
   // const emailRef = useRef<HTMLInputElement>(null);
@@ -43,8 +46,9 @@ export default function Login() {
   };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData.email);
-    console.log(formData.password);
+    // console.log(formData.email);
+    // console.log(formData.password);
+    login(formData.email);
   };
 
   return (

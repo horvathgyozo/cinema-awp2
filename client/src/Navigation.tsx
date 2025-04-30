@@ -27,7 +27,7 @@ export function Navigation() {
             <div className="flex items-center space-x-4">
               <span className="text-muted-foreground">Welcome, User</span>
               <Button variant="outline">Logout</Button>
-              <Button variant="ghost">Login</Button>
+              <Link to={"/login"}>Login</Link>
               <Button>Register</Button>
               <ThemeButton />
             </div>

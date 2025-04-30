@@ -9,8 +9,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router";
 import movieData from "./dummy-data/movies.json";
+import { useTheme } from "./ThemeProvider";
 
 export default function MovieDetail() {
+  const { theme } = useTheme();
   const params = useParams();
   const movieId = Number(params.id);
   const movie = movieData.find((movie) => movie.id === movieId);
@@ -22,7 +24,10 @@ export default function MovieDetail() {
     <div className="max-w-5xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div className="md:col-span-2">
-          <h1 className="text-4xl font-bold mb-4">{movie.title}</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {movie.title}
+            <small className="px-3">{theme}</small>
+          </h1>
           <div className="flex items-center gap-4 mb-4 text-muted-foreground">
             <span className="text-lg">{movie.release_year}</span>
             <span className="text-lg">{movie.duration} minutes</span>

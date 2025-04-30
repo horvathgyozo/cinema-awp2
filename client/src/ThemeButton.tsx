@@ -1,8 +1,9 @@
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useTheme } from "./ThemeProvider";
 
 export function ThemeButton() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     if (theme === "light") {

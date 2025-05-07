@@ -8,10 +8,8 @@ import {
   CardFooter,
 } from "./components/ui/card";
 import { Badge } from "./components/ui/badge";
-import movieData from "./dummy-data/movies.json";
 import { Link } from "react-router";
-
-export type Movie = (typeof movieData)[number];
+import { Movie } from "./Home";
 
 interface MovieCardProps {
   movie: Movie;
@@ -23,7 +21,7 @@ export function MovieCard({ movie }: MovieCardProps) {
       <Card className="overflow-hidden flex flex-col h-full pt-0 hover:shadow-lg transition-shadow duration-300">
         <div className="relative h-[400px] overflow-hidden">
           <img
-            src={movie.image_path}
+            // src={movie.image_path}
             alt={movie.title}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
@@ -43,11 +41,13 @@ export function MovieCard({ movie }: MovieCardProps) {
         <CardFooter className="text-sm text-muted-foreground mt-auto">
           <div className="flex justify-between items-center w-full">
             <Badge variant="secondary" className="shrink-0">
-              {movie.genre}
+              {/* {movie.genre} */}
+              Sci-fi
             </Badge>
             <div className="flex items-center text-muted-foreground text-sm gap-1">
               <Clock className="h-4 w-4" />
-              <span>{movie.duration} min</span>
+              {/* <span>{movie.duration} min</span> */}
+              <span>120 min</span>
             </div>
           </div>
         </CardFooter>

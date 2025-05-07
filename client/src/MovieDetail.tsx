@@ -1,24 +1,42 @@
 import {
   Table,
   TableBody,
-  TableCell,
+  // TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router";
-import movieData from "./dummy-data/movies.json";
 import { useTheme } from "./ThemeProvider";
+import { useEffect, useState } from "react";
+import { Movie } from "./Home";
 
 export default function MovieDetail() {
   const { theme } = useTheme();
   const params = useParams();
   const movieId = Number(params.id);
-  const movie = movieData.find((movie) => movie.id === movieId);
-  if (!movie) return null;
+  const [movie, setMovie] = useState<Movie>({
+    id: 0,
+    title: "",
+    description: "",
+  });
+  useEffect(() => {
+    async function get() {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/movies/${movieId}`
+      );
+      const movie = await response.json();
+      setMovie(movie);
+    }
+    get();
+  }, [movieId]);
   // Screenings to display
-  const currentScreenings = movie.screenings.slice(0, 3);
+  // const currentScreenings = movie.screenings.slice(0, 3);
+
+  if (movie.id === 0) {
+    return "Loading...";
+  }
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -29,10 +47,14 @@ export default function MovieDetail() {
             <small className="px-3">{theme}</small>
           </h1>
           <div className="flex items-center gap-4 mb-4 text-muted-foreground">
-            <span className="text-lg">{movie.release_year}</span>
-            <span className="text-lg">{movie.duration} minutes</span>
-            <span className="text-lg">{movie.genre}</span>
-            <span className="text-lg">Director: {movie.director}</span>
+            {/* <span className="text-lg">{movie.release_year}</span> */}
+            <span className="text-lg">2020</span>
+            {/* <span className="text-lg">{movie.duration} minutes</span> */}
+            <span className="text-lg">120 minutes</span>
+            {/* <span className="text-lg">{movie.genre}</span> */}
+            <span className="text-lg">Sci-fi</span>
+            {/* <span className="text-lg">Director: {movie.director}</span> */}
+            <span className="text-lg">Director: Győző Horváth</span>
           </div>
           <p className="text-lg mb-8 text-muted-foreground">
             {movie.description}
@@ -50,7 +72,7 @@ export default function MovieDetail() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {currentScreenings.map((screening) => (
+                  {/* {currentScreenings.map((screening) => (
                     <TableRow key={screening.id}>
                       <TableCell>{screening.start_time}</TableCell>
                       <TableCell>{screening.price} Ft</TableCell>
@@ -58,7 +80,7 @@ export default function MovieDetail() {
                         <Button>Book</Button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))} */}
                 </TableBody>
               </Table>
             </div>
@@ -77,7 +99,7 @@ export default function MovieDetail() {
         </div>
         <div>
           <img
-            src={`/${movie.image_path}`}
+            // src={`/${movie.image_path}`}
             alt={movie.title}
             className="w-full rounded-lg shadow-lg"
           />

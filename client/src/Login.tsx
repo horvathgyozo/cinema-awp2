@@ -3,9 +3,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { useAuthStore } from "./useAuthStore";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
 
   // uncontrolled form components
   // 1.
@@ -49,6 +51,7 @@ export default function Login() {
     // console.log(formData.email);
     // console.log(formData.password);
     login(formData.email);
+    navigate("/");
   };
 
   return (

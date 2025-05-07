@@ -6,6 +6,7 @@ import { useAuthStore } from "./useAuthStore";
 
 export function Navigation() {
   const email = useAuthStore((state) => state.email);
+  const logout = useAuthStore((state) => state.logout);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
@@ -34,7 +35,9 @@ export function Navigation() {
                   <span className="text-muted-foreground">
                     Welcome, {email}
                   </span>
-                  <Button variant="outline">Logout</Button>{" "}
+                  <Button onClick={() => logout()} variant="outline">
+                    Logout
+                  </Button>{" "}
                 </>
               ) : (
                 <>

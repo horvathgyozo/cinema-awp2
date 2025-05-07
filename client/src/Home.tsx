@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { MovieCard } from "./MovieCard";
+import { useQuery } from "@tanstack/react-query";
 
 export interface Movie {
   id: number;
@@ -10,16 +10,27 @@ export interface Movie {
 }
 
 export function Home() {
-  const [movies, setMovies] = useState<Movie[]>([]);
-
-  useEffect(() => {
-    async function getAll() {
+  const {
+    isPending,
+    isError,
+    data: movies,
+    error,
+  } = useQuery<Movie[]>({
+    queryKey: ["movies"],
+    queryFn: async () => {
       const response = await fetch("http://127.0.0.1:8000/api/movies");
       const movies = await response.json();
-      setMovies(movies);
-    }
-    getAll();
-  }, []);
+      return movies;
+    },
+  });
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <div className="container max-w-5xl mx-auto px-4">

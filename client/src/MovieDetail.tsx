@@ -9,34 +9,38 @@ import {
 import { Button } from "@/components/ui/button";
 import { useParams } from "react-router";
 import { useTheme } from "./ThemeProvider";
-import { useEffect, useState } from "react";
 import { Movie } from "./Home";
+import { useQuery } from "@tanstack/react-query";
 
 export default function MovieDetail() {
   const { theme } = useTheme();
   const params = useParams();
   const movieId = Number(params.id);
-  const [movie, setMovie] = useState<Movie>({
-    id: 0,
-    title: "",
-    description: "",
-  });
-  useEffect(() => {
-    async function get() {
+  const {
+    isPending,
+    isError,
+    data: movie,
+    error,
+  } = useQuery<Movie>({
+    queryKey: ["movies", movieId],
+    queryFn: async () => {
       const response = await fetch(
         `http://127.0.0.1:8000/api/movies/${movieId}`
       );
       const movie = await response.json();
-      setMovie(movie);
-    }
-    get();
-  }, [movieId]);
+      return movie;
+    },
+  });
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
   // Screenings to display
   // const currentScreenings = movie.screenings.slice(0, 3);
-
-  if (movie.id === 0) {
-    return "Loading...";
-  }
 
   return (
     <div className="max-w-5xl mx-auto">

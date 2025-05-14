@@ -5,7 +5,7 @@ import { ThemeButton } from "./ThemeButton";
 import { useAuthStore } from "./useAuthStore";
 
 export function Navigation() {
-  const email = useAuthStore((state) => state.email);
+  const name = useAuthStore((state) => state.user?.name);
   const logout = useAuthStore((state) => state.logout);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -35,9 +35,7 @@ export function Navigation() {
             <div className="flex items-center space-x-4">
               {isAuthenticated ? (
                 <>
-                  <span className="text-muted-foreground">
-                    Welcome, {email}
-                  </span>
+                  <span className="text-muted-foreground">Welcome, {name}</span>
                   <Button onClick={() => logout()} variant="outline">
                     Logout
                   </Button>{" "}

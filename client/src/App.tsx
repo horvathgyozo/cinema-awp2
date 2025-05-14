@@ -6,6 +6,7 @@ import { ThemeProvider } from "./ThemeProvider";
 import Login from "./Login";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MyBookings } from "./MyBookings";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,7 @@ function App() {
                 path="/my-bookings"
                 element={
                   <ProtectedRoute>
-                    <h1>My bookings page</h1>
+                    <MyBookings />
                   </ProtectedRoute>
                 }
               />
